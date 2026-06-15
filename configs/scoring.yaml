@@ -1,0 +1,22 @@
+# Scoring weights for the overall opportunity score.
+# Weights must sum to 1.0; each criterion is scored 1–10, so the weighted base
+# is also in 1–10 before the duplication penalty is subtracted.
+weights:
+  portfolio_fit: 0.20
+  market_pain: 0.20
+  novelty: 0.15
+  buildability: 0.15
+  demo: 0.10
+  differentiation: 0.10
+  proof: 0.10
+
+# Penalty subtracted from the overall score per duplication verdict.
+duplication_penalty:
+  none: 0
+  adjacent: 1
+  similar: 2
+  duplicate: 4
+
+# A repo pushed more than this many days before "now" is treated as stale,
+# lowering its market_pain score.
+stale_after_days: 365

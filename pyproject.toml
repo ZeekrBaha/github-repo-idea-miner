@@ -1,0 +1,67 @@
+[project]
+name = "reporadar"
+version = "0.1.0"
+description = "RepoRadar — GitHub Repo Idea Miner: mine GitHub for AI/LLM/QA/dev-tool repos, dedupe against local projects, and recommend differentiated portfolio ideas."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Baha" }]
+dependencies = [
+    "typer>=0.12",
+    "pydantic>=2.6",
+    "httpx>=0.27",
+    "rich>=13.7",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+    "rapidfuzz>=3.6",
+]
+
+[project.scripts]
+reporadar = "reporadar.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+    "types-pyyaml>=6.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reporadar"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# B008: Typer uses `typer.Option(...)`/`typer.Argument(...)` as argument defaults
+# by design — this is the documented idiom, not a bug.
+ignore = ["B008"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["rapidfuzz.*"]
+ignore_missing_imports = true
+
+# Test functions are exercised by pytest, not typed APIs — relax the strict
+# "every def must be annotated" rule there while still type-checking bodies.
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disallow_untyped_calls = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["src"]
