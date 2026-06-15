@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Coverage artifacts
+.coverage
+htmlcov/
+
+# RepoRadar local cache (per-day SQLite search cache)
+cache.db
+
+# Local portfolio inventory contains absolute personal paths — keep out of VCS
+reports/local-inventory.json

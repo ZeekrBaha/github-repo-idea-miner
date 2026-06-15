@@ -1,0 +1,44 @@
+# RepoRadar search profiles.
+# Each profile is a named bundle of GitHub search queries. The miner runs every
+# query in the active profile, de-duplicates repos, then scores them.
+profiles:
+  baha-ai-qa:
+    description: Baha's core niche — AI QA, LLM eval, agentic QA, coding-agent tooling.
+    queries:
+      - "AI QA agent testing language:Python stars:>20 pushed:>2026-01-01"
+      - "LLM evaluation dashboard stars:>20 pushed:>2026-01-01"
+      - "Claude Code agent worktree stars:>10 pushed:>2026-01-01"
+      - "agent orchestration dashboard coding agents stars:>10 pushed:>2026-01-01"
+      - "Promptfoo DeepEval eval harness stars:>10 pushed:>2026-01-01"
+      - "Playwright AI agent QA stars:>10 pushed:>2026-01-01"
+      - "self healing Playwright agent stars:>10 pushed:>2026-01-01"
+      - "agent readiness codebase stars:>10 pushed:>2026-01-01"
+      - "vibe coding agent dashboard stars:>10 pushed:>2026-01-01"
+      - "LLM observability eval open source stars:>50 pushed:>2026-01-01"
+
+  ai_eval:
+    description: LLM evaluation harnesses and judges.
+    queries:
+      - "LLM eval harness stars:>20"
+      - "RAG evaluation framework stars:>20"
+      - "LLM judge calibration stars:>10"
+
+  agentic_qa:
+    description: Autonomous browser/QA testing agents.
+    queries:
+      - "AI QA agent Playwright stars:>10"
+      - "browser agent testing stars:>10"
+      - "autonomous QA testing agent stars:>10"
+
+  coding_agents:
+    description: Coding-agent orchestration and multi-agent dashboards.
+    queries:
+      - "Claude Code worktree stars:>10"
+      - "Codex CLI orchestrator stars:>10"
+      - "multi agent coding dashboard stars:>10"
+
+  portfolio_saas:
+    description: AI SaaS boilerplates and dashboard templates.
+    queries:
+      - "open source SaaS boilerplate AI stars:>50"
+      - "AI dashboard template stars:>50"

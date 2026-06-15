@@ -1,0 +1,107 @@
+# Idea blueprints, one per cluster theme (keys match clustering.THEMES ids).
+# Each blueprint is the deterministic scaffold for a recommendation; the miner
+# seeds it with real repo signals (names, stars, descriptions) at generation time.
+blueprints:
+  coding-agents:
+    title: Coding-Agent Flight Recorder
+    why: Teams running Claude Code / Codex agents lack a shared, replayable record of agent runs.
+    angle: Record every agent session (prompts, diffs, tool calls) and replay it as an auditable timeline.
+    mvp_scope:
+      - Capture agent session events into SQLite
+      - Render a per-run timeline with diffs and tool calls
+      - Export a shareable Markdown run report
+    validation_plan:
+      - Replay 3 real agent sessions end-to-end
+      - Confirm every diff maps to a tool call
+    tech_stack: [python, sqlite, typer, rich]
+
+  agentic-qa:
+    title: Self-Healing Browser QA Agent
+    why: Browser tests break on selector drift; agentic QA repos show demand for resilient flows.
+    angle: An agent that re-derives broken selectors from the DOM and proposes a verified patch + screenshot diff.
+    mvp_scope:
+      - Run a Playwright flow and detect a broken selector
+      - Re-locate the element and propose a patch
+      - Emit before/after screenshots as evidence
+    validation_plan:
+      - Break a selector deliberately and confirm auto-recovery
+      - Verify screenshot diff is attached to the report
+    tech_stack: [python, playwright, typer]
+
+  llm-eval:
+    title: LLM Eval Drift Dashboard
+    why: Eval repos track scores but rarely surface regression drift across prompt/model versions.
+    angle: A dashboard that diffs eval runs over time and flags statistically meaningful regressions.
+    mvp_scope:
+      - Ingest eval run JSON (promptfoo/deepeval shape)
+      - Compute per-metric deltas between runs
+      - Flag regressions beyond a threshold
+    validation_plan:
+      - Feed two eval runs and confirm regression flags
+      - Confirm no false positive on identical runs
+    tech_stack: [python, pydantic, rich]
+
+  prompt:
+    title: Prompt Regression Lab
+    why: Prompt changes silently regress; teams want a git-style diff for prompt behavior.
+    angle: Snapshot prompt outputs as fixtures and fail CI when behavior drifts unexpectedly.
+    mvp_scope:
+      - Record prompt output snapshots
+      - Diff new outputs against snapshots
+      - Fail the run on unapproved drift
+    validation_plan:
+      - Change a prompt and confirm a failing diff
+      - Approve a snapshot and confirm it passes
+    tech_stack: [python, pytest, typer]
+
+  rag:
+    title: RAG Retrieval Auditor
+    why: RAG systems fail at retrieval, not generation; few tools isolate retrieval quality.
+    angle: Score retrieval recall/precision per query and surface the worst-performing chunks.
+    mvp_scope:
+      - Run a labeled query set against a retriever
+      - Compute recall@k and precision@k
+      - Report worst queries with missing chunks
+    validation_plan:
+      - Run against a known gold set
+      - Confirm metrics match hand calculation
+    tech_stack: [python, pydantic, rich]
+
+  repo-audit:
+    title: Agent-Readiness Repo Auditor
+    why: Coding agents fail on repos lacking tests, docs, and clear entry points.
+    angle: Score a repo's agent-readiness (tests, docs, CI, structure) and emit a prioritized fix list.
+    mvp_scope:
+      - Scan a repo for tests, CI, README, and entry points
+      - Compute a weighted readiness score
+      - Emit a prioritized remediation checklist
+    validation_plan:
+      - Audit one healthy and one bare repo
+      - Confirm the score gap is directionally correct
+    tech_stack: [python, typer, rich]
+
+  dataset:
+    title: Synthetic Eval Dataset Forge
+    why: Eval needs diverse test cases; manual authoring does not scale.
+    angle: Generate seeded, deterministic synthetic eval cases with coverage reporting.
+    mvp_scope:
+      - Define case templates with parameter ranges
+      - Generate a deterministic case matrix
+      - Report coverage across parameters
+    validation_plan:
+      - Generate twice and confirm identical output
+      - Confirm coverage report matches the matrix
+    tech_stack: [python, pydantic]
+
+  portfolio-tooling:
+    title: Portfolio Gap Radar
+    why: Builders accumulate similar projects; few tools surface portfolio gaps vs trends.
+    angle: Map your repos against trending themes and recommend the highest-leverage gap to fill.
+    mvp_scope:
+      - Scan local projects into a theme inventory
+      - Compare against mined GitHub themes
+      - Rank underrepresented, high-value themes
+    validation_plan:
+      - Run against the local portfolio
+      - Confirm known gaps surface near the top
+    tech_stack: [python, typer, rich]

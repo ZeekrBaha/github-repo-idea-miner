@@ -1,0 +1,44 @@
+# GitHub Repo Idea Miner Report
+
+Generated: {{ generated_at }}
+Profile: {{ profile }}
+Repos scanned: {{ repos_scanned }}
+Ideas recommended: {{ ideas | length }}
+
+## Executive Summary
+
+Top themes:
+{% for theme in top_themes %}{{ loop.index }}. {{ theme }}
+{% endfor %}
+{% if errors %}
+> Source notes: {{ errors | length }} query/source issue(s) encountered this run. See the JSON report for details.
+{% endif %}
+## Top Recommendations
+{% for idea in ideas %}
+### {{ loop.index }}. {{ idea.title }}
+
+Score: {{ '%.2f' | format(idea.score) }}/10
+
+Source repos:
+{% for repo in idea.source_repos %}- https://github.com/{{ repo }}
+{% endfor %}
+Why it is interesting:
+{{ idea.why_interesting }}
+
+Local duplication check:
+{{ idea.local_duplication }}
+
+Differentiated build angle:
+{{ idea.differentiated_angle }}
+
+MVP scope:
+{% for item in idea.mvp_scope %}- {{ item }}
+{% endfor %}
+Validation plan:
+{% for item in idea.validation_plan %}- {{ item }}
+{% endfor %}
+Tech stack: {{ idea.tech_stack | join(', ') }}
+{% endfor %}
+{% if not ideas %}
+_No ideas met the recommendation bar in this run._
+{% endif %}
